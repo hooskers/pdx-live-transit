@@ -5,6 +5,11 @@ import { withGoogleMap, withScriptjs } from 'react-google-maps';
 
 import MainMap from './components/MainMap';
 import Sidebar from './components/Sidebar';
+import mapsKey from './mapsKey';
+
+if (!mapsKey) {
+  throw new Error(`Incorrect or no Google Maps API key. Found: '${mapsKey}'`);
+}
 
 const containerStyle = css`
   position: relative;
@@ -28,8 +33,9 @@ class MainComponent extends Component {
   }
 
   componentWillMount() {
+    const URL = 'https://lit-coast-37855.herokuapp.com';
     const intervalId = window.setInterval(() => {
-      window.fetch('http://localhost:3000/vehicles', { mode: 'cors' })
+      window.fetch(`${URL}/vehicles`, { mode: 'cors' })
         .then(res => res.json())
         .then((vehicles) => {
           this.setVehicles(vehicles);
@@ -146,7 +152,7 @@ class MainComponent extends Component {
           ), this.state.bounds)}
         />
         <Map
-          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${mapsKey}&v=3.exp&libraries=geometry,drawing,places`}
           loadingElement={<div style={{ height: '100%' }} />}
           containerElement={<div style={{ height: '100%', zIndex: 1 }} />}
           mapElement={<div style={{ height: '100%', width: '75%', marginLeft: '25%' }} />}
