@@ -7,7 +7,7 @@ module.exports = {
     app: './src/js/app.jsx',
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(['docs']),
     new HtmlWebpackPlugin({
       title: 'Production',
       template: './src/index.html',
@@ -27,6 +27,6 @@ module.exports = {
   },
   output: {
     filename: 'app.bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'docs'),
   },
 };
