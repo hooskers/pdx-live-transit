@@ -18,7 +18,7 @@ const vehicleInfoStyle = css`
     height: 100%;
     display: grid;
     grid-template-rows: 1fr 2fr;
-    grid-template-columns: 1fr 5fr 5fr;
+    grid-template-columns: 1fr 10fr;
     grid-column-gap: 10px;
 
     .color {
@@ -41,7 +41,7 @@ const vehicleInfoStyle = css`
   }
 
   .info {
-
+    align-self: center;
   }
 `;
 

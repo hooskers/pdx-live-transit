@@ -12,6 +12,8 @@ const sidebarStyle = css`
   background-color: #000000b0;
   height: 100%;
   width: 25%;
+  min-width: 256px;
+  max-width: 380px;
   box-shadow: 3px 0px 8px 1px #00000050;
   box-shadow: none;
   overflow: scroll;
