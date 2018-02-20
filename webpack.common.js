@@ -20,6 +20,10 @@ module.exports = {
         exclude: /node_modules/,
         use: ['babel-loader', 'eslint-loader'],
       },
+      {
+        test: /\.(eot|woff|woff2|svg|ttf)([?]?.*)/,
+        loader: 'url-loader?limit=50000',
+      },
     ],
   },
   resolve: {

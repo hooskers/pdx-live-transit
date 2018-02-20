@@ -1,19 +1,34 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { css } from 'react-emotion';
+import { css, injectGlobal } from 'react-emotion';
 import { withGoogleMap, withScriptjs } from 'react-google-maps';
 
 import MainMap from './components/MainMap';
 import Sidebar from './components/Sidebar';
 import mapsKey from './mapsKey';
 
+import font from '../../assets/Orkney Regular.woff2';
+
 if (!mapsKey) {
   throw new Error(`Incorrect or no Google Maps API key. Found: '${mapsKey}'`);
 }
+/* eslint-disable */
+injectGlobal`
+  @font-face {
+    font-family: 'Orkney';
+    src: url(${font}) format('woff2');
+  }
+`
+/* eslint-enable */
 
 const containerStyle = css`
   position: relative;
   height: 100%;
+  font-family: 'Orkney', 'Arial';
+
+  .gm-style-mtc {
+    display: none;
+  }
 `;
 
 const Map = withScriptjs(withGoogleMap(props => (
@@ -155,7 +170,7 @@ class MainComponent extends Component {
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${mapsKey}&v=3.exp&libraries=geometry,drawing,places`}
           loadingElement={<div style={{ height: '100%' }} />}
           containerElement={<div style={{ height: '100%', zIndex: 1 }} />}
-          mapElement={<div style={{ height: '100%', width: '75%', marginLeft: '25%' }} />}
+          mapElement={<div style={{ height: '100%', width: '100%' }} />}
           vehicles={this.filterBounds(this.filterTerm(
             this.state.vehicles,
             this.state.filterTerm,

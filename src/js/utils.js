@@ -1,3 +1,5 @@
+import lowerCase from 'lodash/lowerCase';
+
 const getColor = (label) => {
   const color = /^[a-zA-Z]+/.exec(label);
   if (color) {
@@ -7,4 +9,12 @@ const getColor = (label) => {
   return 'black';
 };
 
-export default getColor;
+const sentenceCase = (inputString) => {
+  const newString = lowerCase(inputString);
+
+  return newString.charAt(0).toUpperCase() + newString.slice(1);
+};
+
+const fixBearing = bearing => bearing - 40;
+
+export { getColor, sentenceCase, fixBearing };

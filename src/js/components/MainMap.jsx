@@ -4,7 +4,8 @@ import throttle from 'lodash/throttle';
 import { css } from 'emotion';
 import { GoogleMap, Marker } from 'react-google-maps';
 
-import getColor from '../utils';
+import { getColor, fixBearing } from '../utils';
+import { ARROW_PATH, CIRCLE_PATH } from '../constants';
 
 const markerStyle = css`
   div {
@@ -59,13 +60,13 @@ class MainMap extends Component {
             const scale = scalar => Math.sin(zoomLevel / scalar) ** 2;
 
             const arrow = {
-              path: 'M32.517 48.107l-7.072-21.107h-22.983l44.198-24.804z',
+              path: ARROW_PATH,
               size: 66,
               anchor: { x: (66 * scale(arrowScalar)) / 2, y: (66 * scale(arrowScalar)) / 2 },
             };
 
             const circle = {
-              path: 'M14,7.5c0,3.5899-2.9101,6.5-6.5,6.5S1,11.0899,1,7.5S3.9101,1,7.5,1S14,3.9101,14,7.5z',
+              path: CIRCLE_PATH,
               size: 15,
               scalar: 12,
               anchor: { x: 0, y: 0 },
@@ -84,7 +85,7 @@ class MainMap extends Component {
                   strokeColor: 'black',
                   scale: showCircles ? scale(circleScalar) : scale(arrowScalar),
                   fillOpacity: 1,
-                  rotation: bearing - 40,
+                  rotation: fixBearing(bearing),
                 }}
               />
             );

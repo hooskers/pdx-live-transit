@@ -16,6 +16,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1",
+    "url-loader": "^0.6.2",
     "webpack-dev-server": "^2.9.7"
   },
   "scripts": {
