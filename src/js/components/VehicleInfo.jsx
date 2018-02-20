@@ -14,6 +14,15 @@ const vehicleInfoStyle = css`
   margin-left: auto;
   margin-right: auto;
 
+  transform: scale(1, 1);
+  z-index: 2;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.04, 1.04);
+    z-index: 3;
+  }
+
   .vehicle-info-grid {
     height: 100%;
     display: grid;
