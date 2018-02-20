@@ -62,7 +62,7 @@ class Sidebar extends Component {
             vehicleId={parseInt(vehicle.id, 10)}
             label={vehicle.vehicle.vehicle.label}
             color={getColor(vehicle.vehicle.vehicle.label)}
-            tripId={parseInt(vehicle.vehicle.trip.tripId, 10)}
+            tripId={vehicle.vehicle.trip ? parseInt(vehicle.vehicle.trip.tripId, 10) : 0}
             stopStatus={vehicle.vehicle.currentStatus}
             stopId={parseInt(vehicle.vehicle.stopId, 10)}
           />

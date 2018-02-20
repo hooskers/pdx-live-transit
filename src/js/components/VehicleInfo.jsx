@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { sentenceCase } from '../utils';
 
 const vehicleInfoStyle = css`
-  height: 75px;
+  height: 6em;
   border-bottom: 1px solid #9a9a9a;
   padding: 7px;
   border-radius: 5px;
@@ -17,7 +17,7 @@ const vehicleInfoStyle = css`
   .vehicle-info-grid {
     height: 100%;
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 2fr;
     grid-template-columns: 1fr 5fr 5fr;
     grid-column-gap: 10px;
 
