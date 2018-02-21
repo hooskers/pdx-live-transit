@@ -9,7 +9,7 @@ const sidebarStyle = css`
   position: absolute;
   z-index: 3;
   background-color: whitesmoke;
-  background-color: #000000b0;
+  background-color: rgba(0, 0, 0, 0.69);
   height: 100%;
   width: 25%;
   min-width: 256px;
