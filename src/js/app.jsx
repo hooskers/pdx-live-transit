@@ -44,6 +44,8 @@ class MainComponent extends Component {
       intervalId: null,
       filterTerm: '',
       bounds: null,
+      highlightedId: null,
+      selectedId: null,
     };
   }
 
@@ -108,6 +110,18 @@ class MainComponent extends Component {
     this.setState({ bounds });
   }
 
+  setHighlightedId = (highlightedId) => {
+    this.setState({ highlightedId });
+  }
+
+  setSelectedId = (selectedId) => {
+    if (selectedId === this.state.selectedId) {
+      this.setState({ selectedId: null });
+    } else {
+      this.setState({ selectedId });
+    }
+  }
+
   /**
    * Filters only vehicles that match a given term.
    * Checks term against the vehicle's label
@@ -165,6 +179,10 @@ class MainComponent extends Component {
             this.state.vehicles,
             this.state.filterTerm,
           ), this.state.bounds)}
+          highlightedId={this.state.highlightedId}
+          setHighlightedId={this.setHighlightedId}
+          setSelectedId={this.setSelectedId}
+          selectedId={this.state.selectedId}
         />
         <Map
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${mapsKey}&v=3.exp&libraries=geometry,drawing,places`}
@@ -176,6 +194,8 @@ class MainComponent extends Component {
             this.state.filterTerm,
           ), this.state.bounds)}
           setBoundsFunc={this.setBounds}
+          highlightedId={this.state.highlightedId}
+          selectedId={this.state.selectedId}
         />
       </div>
     );

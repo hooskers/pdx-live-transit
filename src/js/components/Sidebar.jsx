@@ -61,12 +61,15 @@ class Sidebar extends Component {
         {this.props.vehicles.map(vehicle => (
           <VehicleInfo
             key={vehicle.id}
+            setHighlightedId={this.props.setHighlightedId}
+            setSelectedId={this.props.setSelectedId}
             vehicleId={parseInt(vehicle.id, 10)}
             label={vehicle.vehicle.vehicle.label}
             color={getColor(vehicle.vehicle.vehicle.label)}
             tripId={vehicle.vehicle.trip ? parseInt(vehicle.vehicle.trip.tripId, 10) : 0}
-            stopStatus={vehicle.vehicle.currentStatus}
+            stopStatus={vehicle.vehicle.currentStatus || ''}
             stopId={parseInt(vehicle.vehicle.stopId, 10)}
+            selected={this.props.selectedId === parseInt(vehicle.id, 10)}
           />
         ))}
       </div>
@@ -77,6 +80,13 @@ class Sidebar extends Component {
 Sidebar.propTypes = {
   filterFunc: PropTypes.func.isRequired,
   vehicles: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setHighlightedId: PropTypes.func.isRequired,
+  setSelectedId: PropTypes.func.isRequired,
+  selectedId: PropTypes.number,
+};
+
+Sidebar.defaultProps = {
+  selectedId: null,
 };
 
 export default Sidebar;

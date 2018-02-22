@@ -20,7 +20,12 @@ const vehicleInfoStyle = css`
 
   &:hover {
     transform: perspective(1px) scale(1.04, 1.04);
-    z-index: 3;
+    box-shadow: none;
+  }
+
+  &.selected {
+    background-color: #ffff58;
+    transform: perspective(1px) scale(1.04, 1.04);
   }
 
   .vehicle-info-grid {
@@ -54,6 +59,11 @@ const vehicleInfoStyle = css`
   }
 `;
 
+// const vehicleSelectedStyle = css`
+//   transform: perspective(1px) scale(1.04, 1.04) !important;
+//   background-color: red;
+// `;
+
 const VehicleInfo = ({
   vehicleId,
   label,
@@ -61,8 +71,19 @@ const VehicleInfo = ({
   tripId,
   stopStatus,
   stopId,
+  setHighlightedId,
+  setSelectedId,
+  selected,
 }) => (
-  <div className={vehicleInfoStyle}>
+  <div
+    role="button"
+    tabIndex={0}
+    className={`${vehicleInfoStyle} ${selected && 'selected'}`}
+    onMouseEnter={() => setHighlightedId(vehicleId)}
+    onMouseLeave={() => setHighlightedId(null)}
+    onClick={() => setSelectedId(vehicleId)}
+    onKeyPress={e => e.key === 'Enter' && setSelectedId(vehicleId)}
+  >
     <div className="vehicle-info-grid">
       <div className="label">{label}</div>
       <div className="color" style={{ backgroundColor: color }} />
@@ -82,6 +103,9 @@ VehicleInfo.propTypes = {
   tripId: PropTypes.number.isRequired,
   stopStatus: PropTypes.string.isRequired,
   stopId: PropTypes.number.isRequired,
+  setHighlightedId: PropTypes.func.isRequired,
+  setSelectedId: PropTypes.func.isRequired,
+  selected: PropTypes.bool.isRequired,
 };
 
 VehicleInfo.defaultProps = {
