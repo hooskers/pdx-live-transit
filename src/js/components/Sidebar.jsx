@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { css } from 'emotion';
+/** @jsx jsx */
+import { Component } from 'react';
+import { css, jsx } from '@emotion/core';
 import PropTypes from 'prop-types';
 
 import VehicleInfo from './VehicleInfo';
@@ -48,7 +49,10 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <div className={`sidebar ${sidebarStyle}`}>
+      <div
+        className="sidebar"
+        css={sidebarStyle}
+      >
         <input
           onChange={(e) => {
             this.props.filterFunc(e.target.value.trim().toLowerCase());

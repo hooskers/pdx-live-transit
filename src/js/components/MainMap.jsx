@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import throttle from 'lodash/throttle';
-import { css } from 'emotion';
+import { css, jsx } from '@emotion/core';
 import { GoogleMap, Marker } from 'react-google-maps';
 
 import { getColor, fixBearing } from '../utils';
@@ -92,7 +93,7 @@ class MainMap extends Component {
           return (
             <Marker
               key={vehicleId}
-              className={`${markerStyle}`}
+              css={markerStyle}
               position={{ lat, lng }}
               title={vehicle.vehicle.vehicle.label}
               icon={{

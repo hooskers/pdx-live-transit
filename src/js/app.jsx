@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { Component } from 'react';
 import { render } from 'react-dom';
-import { css, injectGlobal } from 'react-emotion';
+import { css, Global, jsx } from '@emotion/core';
 import { withGoogleMap, withScriptjs } from 'react-google-maps';
 
 import MainMap from './components/MainMap';
@@ -12,14 +13,6 @@ import font from '../../assets/Orkney Regular.woff2';
 if (!mapsKey) {
   throw new Error(`Incorrect or no Google Maps API key. Found: '${mapsKey}'`);
 }
-/* eslint-disable */
-injectGlobal`
-  @font-face {
-    font-family: 'Orkney';
-    src: url(${font}) format('woff2');
-  }
-`
-/* eslint-enable */
 
 const containerStyle = css`
   position: relative;
@@ -172,7 +165,17 @@ class MainComponent extends Component {
 
   render() {
     return (
-      <div className={`container ${containerStyle}`}>
+      <div
+        className="container"
+        css={containerStyle}
+      >
+        <Global styles={`
+          @font-face {
+            font-family: 'Orkney';
+            src: url(${font}) format('woff2');
+          }
+        `}
+        />
         <Sidebar
           filterFunc={this.setFilterTerm}
           vehicles={this.filterBounds(this.filterTerm(

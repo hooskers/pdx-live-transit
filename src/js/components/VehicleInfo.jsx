@@ -1,5 +1,5 @@
-import React from 'react';
-import { css } from 'emotion';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 import PropTypes from 'prop-types';
 import { sentenceCase } from '../utils';
 
@@ -78,7 +78,8 @@ const VehicleInfo = ({
   <div
     role="button"
     tabIndex={0}
-    className={`${vehicleInfoStyle} ${selected && 'selected'}`}
+    className={`${selected && 'selected'}`}
+    css={vehicleInfoStyle}
     onMouseEnter={() => setHighlightedId(vehicleId)}
     onMouseLeave={() => setHighlightedId(null)}
     onClick={() => setSelectedId(vehicleId)}
