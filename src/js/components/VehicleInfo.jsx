@@ -45,7 +45,7 @@ const vehicleInfoStyle = css`
       grid-row-end: 4;
       align-self: center;
     }
-    
+
     .label {
       font-size: large;
       font-weight: bold;

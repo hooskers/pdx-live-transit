@@ -24,9 +24,7 @@ const containerStyle = css`
   }
 `;
 
-const Map = withScriptjs(withGoogleMap(props => (
-  <MainMap {...props} />
-)));
+const Map = withScriptjs(withGoogleMap(props => <MainMap {...props} />));
 
 class MainComponent extends Component {
   constructor() {
@@ -45,9 +43,10 @@ class MainComponent extends Component {
   componentWillMount() {
     const URL = 'https://lit-coast-37855.herokuapp.com';
     const intervalId = window.setInterval(() => {
-      window.fetch(`${URL}/vehicles`, { mode: 'cors' })
+      window
+        .fetch(`${URL}/vehicles`, { mode: 'cors' })
         .then(res => res.json())
-        .then((vehicles) => {
+        .then(vehicles => {
           this.setVehicles(vehicles);
         });
     }, 2500);
@@ -65,15 +64,16 @@ class MainComponent extends Component {
    *
    * @param {Array} vehicles The vehicle objects returned from server
    */
-  setVehicles = (vehicles) => {
+  setVehicles = vehicles => {
     const uniqueVehicles = vehicles.filter((vehicle, ind, arr) => {
       const { latitude, longitude, bearing } = vehicle.vehicle.position;
 
-      const foundIndex = arr.findIndex(el => (
-        latitude === el.vehicle.position.latitude &&
-        longitude === el.vehicle.position.longitude &&
-        bearing === el.vehicle.position.bearing
-      ));
+      const foundIndex = arr.findIndex(
+        el =>
+          latitude === el.vehicle.position.latitude &&
+          longitude === el.vehicle.position.longitude &&
+          bearing === el.vehicle.position.bearing,
+      );
 
       if (foundIndex > -1 && foundIndex < ind) {
         return false;
@@ -83,37 +83,37 @@ class MainComponent extends Component {
     });
 
     this.setState({ vehicles: uniqueVehicles });
-  }
+  };
 
   /**
    * Sets current filter term to component state
    *
    * @param {String} filterTerm String to filter vehicles on
    */
-  setFilterTerm = (filterTerm) => {
+  setFilterTerm = filterTerm => {
     this.setState({ filterTerm });
-  }
+  };
 
   /**
    * Sets current bounds to component state
    *
    * @param {Object} bounds The bounds class from GoogleMap component
    */
-  setBounds = (bounds) => {
+  setBounds = bounds => {
     this.setState({ bounds });
-  }
+  };
 
-  setHighlightedId = (highlightedId) => {
+  setHighlightedId = highlightedId => {
     this.setState({ highlightedId });
-  }
+  };
 
-  setSelectedId = (selectedId) => {
+  setSelectedId = selectedId => {
     if (selectedId === this.state.selectedId) {
       this.setState({ selectedId: null });
     } else {
       this.setState({ selectedId });
     }
-  }
+  };
 
   /**
    * Filters only vehicles that match a given term.
@@ -126,7 +126,7 @@ class MainComponent extends Component {
     // If there is no term or no vehicles, just return the vehicles in state
     if (!term || !vehicles.length) return this.state.vehicles;
 
-    return this.state.vehicles.filter((vehicle) => {
+    return this.state.vehicles.filter(vehicle => {
       // If the vehicle doesn't have a label, then filter it out
       if (!vehicle.vehicle.vehicle.label) return false;
 
@@ -139,7 +139,7 @@ class MainComponent extends Component {
 
       return false;
     });
-  }
+  };
 
   /**
    * Filters only the vehicles within the map bounds.
@@ -152,7 +152,7 @@ class MainComponent extends Component {
     // If the bounds object is undefined, then return all vehicles
     if (!bounds || !vehicles.length) return vehicles;
 
-    return vehicles.filter((vehicle) => {
+    return vehicles.filter(vehicle => {
       const coords = {
         lat: vehicle.vehicle.position.latitude,
         lng: vehicle.vehicle.position.longitude,
@@ -165,11 +165,9 @@ class MainComponent extends Component {
 
   render() {
     return (
-      <div
-        className="container"
-        css={containerStyle}
-      >
-        <Global styles={`
+      <div className="container" css={containerStyle}>
+        <Global
+          styles={`
           @font-face {
             font-family: 'Orkney';
             src: url(${font}) format('woff2');
@@ -178,10 +176,10 @@ class MainComponent extends Component {
         />
         <Sidebar
           filterFunc={this.setFilterTerm}
-          vehicles={this.filterBounds(this.filterTerm(
-            this.state.vehicles,
-            this.state.filterTerm,
-          ), this.state.bounds)}
+          vehicles={this.filterBounds(
+            this.filterTerm(this.state.vehicles, this.state.filterTerm),
+            this.state.bounds,
+          )}
           highlightedId={this.state.highlightedId}
           setHighlightedId={this.setHighlightedId}
           setSelectedId={this.setSelectedId}
@@ -192,10 +190,10 @@ class MainComponent extends Component {
           loadingElement={<div style={{ height: '100%' }} />}
           containerElement={<div style={{ height: '100%', zIndex: 1 }} />}
           mapElement={<div style={{ height: '100%', width: '100%' }} />}
-          vehicles={this.filterBounds(this.filterTerm(
-            this.state.vehicles,
-            this.state.filterTerm,
-          ), this.state.bounds)}
+          vehicles={this.filterBounds(
+            this.filterTerm(this.state.vehicles, this.state.filterTerm),
+            this.state.bounds,
+          )}
           setBoundsFunc={this.setBounds}
           highlightedId={this.state.highlightedId}
           selectedId={this.state.selectedId}

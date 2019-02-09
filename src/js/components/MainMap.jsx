@@ -28,26 +28,22 @@ class MainMap extends Component {
   }
 
   render() {
-    const {
-      setBoundsFunc,
-      vehicles,
-      highlightedId,
-      selectedId,
-    } = this.props;
+    const { setBoundsFunc, vehicles, highlightedId, selectedId } = this.props;
 
     return (
       <GoogleMap
         loadingElement={<div style={{ height: '100%' }} />}
-        ref={(map) => { this.mapRef = map; }}
+        ref={map => {
+          this.mapRef = map;
+        }}
         defaultCenter={{ lat: 45.52, lng: -122.67 }}
         defaultZoom={14}
         onBoundsChanged={throttle(
-            () => setBoundsFunc(this.mapRef.context[MAP_CONTEXT].getBounds()),
-            500,
-          )
-        }
+          () => setBoundsFunc(this.mapRef.context[MAP_CONTEXT].getBounds()),
+          500,
+        )}
       >
-        {vehicles.map((vehicle) => {
+        {vehicles.map(vehicle => {
           const vehicleId = parseInt(vehicle.id, 10);
           const circleZoom = 12;
           const zoomLevel = this.mapRef.context[MAP_CONTEXT].zoom;
@@ -55,13 +51,15 @@ class MainMap extends Component {
           const lng = vehicle.vehicle.position.longitude;
           const { bearing } = vehicle.vehicle.position;
 
-          const arrowScalar = (
+          const arrowScalar =
             highlightedId === vehicleId || selectedId === vehicleId
-          ) ? (17 / 2) : 17;
+              ? 17 / 2
+              : 17;
 
-          const circleScalar = (
+          const circleScalar =
             highlightedId === vehicleId || selectedId === vehicleId
-          ) ? (12 / 2) : 12;
+              ? 12 / 2
+              : 12;
 
           const showCircles = zoomLevel < circleZoom;
 
@@ -83,7 +81,10 @@ class MainMap extends Component {
           };
 
           const calcOpacity = (hId, sId, vId) => {
-            if ((hId === null && sId === null) || (hId === vId || sId === vId)) {
+            if (
+              (hId === null && sId === null) ||
+              (hId === vId || sId === vId)
+            ) {
               return 1;
             }
 
@@ -101,7 +102,9 @@ class MainMap extends Component {
                 path: showCircles ? circle.path : arrow.path,
                 fillColor: getColor(vehicle.vehicle.vehicle.label),
                 strokeColor: 'black',
-                scale: showCircles ? scale(zoomLevel, circleScalar) : scale(zoomLevel, arrowScalar),
+                scale: showCircles
+                  ? scale(zoomLevel, circleScalar)
+                  : scale(zoomLevel, arrowScalar),
                 fillOpacity: calcOpacity(highlightedId, selectedId, vehicleId),
                 rotation: fixBearing(bearing),
               }}

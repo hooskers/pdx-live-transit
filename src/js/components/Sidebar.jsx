@@ -49,17 +49,16 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <div
-        className="sidebar"
-        css={sidebarStyle}
-      >
+      <div className="sidebar" css={sidebarStyle}>
         <input
-          onChange={(e) => {
+          onChange={e => {
             this.props.filterFunc(e.target.value.trim().toLowerCase());
           }}
           id="filter"
           placeholder="Start typing to filter"
-          ref={(input) => { this.filterInput = input; }}
+          ref={input => {
+            this.filterInput = input;
+          }}
         />
         <hr />
         {this.props.vehicles.map(vehicle => (
@@ -70,7 +69,11 @@ class Sidebar extends Component {
             vehicleId={parseInt(vehicle.id, 10)}
             label={vehicle.vehicle.vehicle.label}
             color={getColor(vehicle.vehicle.vehicle.label)}
-            tripId={vehicle.vehicle.trip ? parseInt(vehicle.vehicle.trip.tripId, 10) : 0}
+            tripId={
+              vehicle.vehicle.trip
+                ? parseInt(vehicle.vehicle.trip.tripId, 10)
+                : 0
+            }
             stopStatus={vehicle.vehicle.currentStatus || ''}
             stopId={parseInt(vehicle.vehicle.stopId, 10)}
             selected={this.props.selectedId === parseInt(vehicle.id, 10)}
