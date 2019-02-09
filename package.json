@@ -36,10 +36,10 @@
   },
   "dependencies": {
     "@emotion/core": "^10.0.7",
-    "lodash": "^4.17.5",
-    "prop-types": "^15.6.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "lodash": "^4.17.11",
+    "prop-types": "^15.6.2",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
     "react-google-maps": "^9.4.5"
   }
 }
