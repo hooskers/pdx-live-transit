@@ -24,7 +24,8 @@ class MainMap extends Component {
   }
 
   componentDidMount() {
-    this.props.setBoundsFunc(this.mapRef.context[MAP_CONTEXT].getBounds());
+    const { setBoundsFunc } = this.props;
+    setBoundsFunc(this.mapRef.context[MAP_CONTEXT].getBounds());
   }
 
   render() {

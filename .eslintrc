@@ -4,7 +4,11 @@
   "rules": {
     "prop-types": [0],
     "no-underscore-dangle": [2, { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }],
-    "no-extraneous-dependencies": true
+    "import/no-extraneous-dependencies": [
+      "warning",
+      { "devDependencies": true }
+    ],
+    "jsx-one-expression-per-line": "single-child"
   },
   "extends": ["airbnb", "prettier"],
   "env": {

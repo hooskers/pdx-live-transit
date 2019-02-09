@@ -89,8 +89,8 @@ const VehicleInfo = ({
       <div className="label">{label}</div>
       <div className="color" style={{ backgroundColor: color }} />
       <div className="info">
-        <div>ID: {vehicleId}</div>
-        <div>Trip ID: {tripId}</div>
+        <div>{`ID: ${vehicleId}`}</div>
+        <div>{`Trip ID: ${tripId}`}</div>
         <div>{`${sentenceCase(stopStatus)} ${stopId}`}</div>
       </div>
     </div>

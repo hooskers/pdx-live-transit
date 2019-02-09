@@ -56,7 +56,8 @@ class MainComponent extends Component {
 
   componentWillUnmount() {
     // Clear the interval that was created to pull vehicles from server
-    window.clearInterval(this.state.intervalId);
+    const { intervalId } = this.state;
+    window.clearInterval(intervalId);
   }
 
   /**
@@ -107,11 +108,14 @@ class MainComponent extends Component {
     this.setState({ highlightedId });
   };
 
-  setSelectedId = selectedId => {
-    if (selectedId === this.state.selectedId) {
+  setSelectedId = newSelectedId => {
+    const { selectedId } = this.state;
+
+    if (newSelectedId === selectedId) {
+      // If the IDs match, then the user wants to deselect this vehicle
       this.setState({ selectedId: null });
     } else {
-      this.setState({ selectedId });
+      this.setState({ selectedId: newSelectedId });
     }
   };
 
@@ -124,9 +128,9 @@ class MainComponent extends Component {
    */
   filterTerm = (vehicles, term) => {
     // If there is no term or no vehicles, just return the vehicles in state
-    if (!term || !vehicles.length) return this.state.vehicles;
+    if (!term || !vehicles.length) return this.state.vehicles; //eslint-disable-line
 
-    return this.state.vehicles.filter(vehicle => {
+    return vehicles.filter(vehicle => {
       // If the vehicle doesn't have a label, then filter it out
       if (!vehicle.vehicle.vehicle.label) return false;
 
@@ -164,6 +168,14 @@ class MainComponent extends Component {
   };
 
   render() {
+    const {
+      vehicles,
+      filterTerm,
+      bounds,
+      highlightedId,
+      selectedId,
+    } = this.state;
+
     return (
       <div className="container" css={containerStyle}>
         <Global
@@ -177,13 +189,13 @@ class MainComponent extends Component {
         <Sidebar
           filterFunc={this.setFilterTerm}
           vehicles={this.filterBounds(
-            this.filterTerm(this.state.vehicles, this.state.filterTerm),
-            this.state.bounds,
+            this.filterTerm(vehicles, filterTerm),
+            bounds,
           )}
-          highlightedId={this.state.highlightedId}
+          highlightedId={highlightedId}
           setHighlightedId={this.setHighlightedId}
           setSelectedId={this.setSelectedId}
-          selectedId={this.state.selectedId}
+          selectedId={selectedId}
         />
         <Map
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${mapsKey}&v=3.exp&libraries=geometry,drawing,places`}
@@ -191,12 +203,12 @@ class MainComponent extends Component {
           containerElement={<div style={{ height: '100%', zIndex: 1 }} />}
           mapElement={<div style={{ height: '100%', width: '100%' }} />}
           vehicles={this.filterBounds(
-            this.filterTerm(this.state.vehicles, this.state.filterTerm),
-            this.state.bounds,
+            this.filterTerm(vehicles, filterTerm),
+            bounds,
           )}
           setBoundsFunc={this.setBounds}
-          highlightedId={this.state.highlightedId}
-          selectedId={this.state.selectedId}
+          highlightedId={highlightedId}
+          selectedId={selectedId}
         />
       </div>
     );
